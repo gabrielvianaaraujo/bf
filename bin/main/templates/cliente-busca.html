@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-	  xmlns:th="http://www.thymeleaf.org" layout:decorate="~{layout}" th:with="link=@{/cliente/home}">
-	  																  th:with="link=@{/cliente/home}"
+	  xmlns:th="http://www.thymeleaf.org" layout:decorate="~{layout}" th:with="link=@{/cliente/search}">
+	  																  
 		<div layout:fragment="content">
 		
 			<div>
 				<h1>� hora de rangar!</h1>
-				<form method="post" action="clienteBusca.html">
+				<form method="get" th:object="${searchFilter}" th:action="@{/cliente/search}">
 					<fieldset>
-						<input type="text" name="email" placeholder="Buscar por...">
+						<input type="text" th:field="*{texto}" placeholder="Buscar por...">
 						<input type="submit" value="Procurar">
 					</fieldset>
 				</form>
@@ -103,4 +103,3 @@
 		</div>
 	</body>
 </html>
-
