@@ -79,4 +79,8 @@ public class LoggedUser implements UserDetails {
     public Usuario getUsuario() {
         return usuario;
     }
+
+    public String getNameUsuario(){
+        return this.getUsuario().getNome();
+    }
 }

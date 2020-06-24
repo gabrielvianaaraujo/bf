@@ -1,8 +1,11 @@
 package br.com.softblue.bluefood.infrastructure.web.controller;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -15,6 +18,9 @@ import br.com.softblue.bluefood.application.services.ClienteService;
 import br.com.softblue.bluefood.application.services.ValidationException;
 import br.com.softblue.bluefood.domain.cliente.Cliente;
 import br.com.softblue.bluefood.domain.cliente.ClienteRepository;
+import br.com.softblue.bluefood.domain.restaurante.CategoriaRestaurante;
+import br.com.softblue.bluefood.domain.restaurante.CategoriaRestauranteRepository;
+import br.com.softblue.bluefood.domain.restaurante.SearchFilter;
 import br.com.softblue.bluefood.utils.SecurityUtils;
 
 @Controller
@@ -25,10 +31,18 @@ public class ClienteController {
 	private ClienteService cs;
 	
 	@Autowired
+	private CategoriaRestauranteRepository crr;
+
+	@Autowired
 	private ClienteRepository cr;
 
+	
 	@GetMapping(path = "/home")
-	public String home() {
+	public String home(Model model) {
+
+		List<CategoriaRestaurante> categorias = crr.findAll(Sort.by("nome"));
+		model.addAttribute("categorias", categorias);
+		model.addAttribute("searchFilter", new SearchFilter());
 		return "cliente-home";
 	}
 	
@@ -54,5 +68,11 @@ public class ClienteController {
 		}
 		HelperController.setEditMode(model, true);
 		return "cliente-cadastro";
+	}
+
+	@GetMapping(path = "/search")
+	public String search(@ModelAttribute ("searchFilter") SearchFilter filter){
+		//model.addAttribute();
+		return "cliente-busca";
 	}
 }
