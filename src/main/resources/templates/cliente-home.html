@@ -1,29 +1,36 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
 	  xmlns:th="http://www.thymeleaf.org" layout:decorate="~{layout}" th:with="link=@{/cliente/home}">
-	  																  th:with="link=@{/cliente/home}"
+	  																  
 		<div layout:fragment="content">
-			<div>
-				<h1>É hora de rangar!</h1>
-				<form method="get" th:object="${searchFilter}" th:action="@{/cliente/search}">
-					<fieldset>
-						<input type="text" th:field="*{texto}" placeholder="Buscar por...">
-						<input type="submit" value="Procurar">
-					</fieldset>
-				</form>
-				<br>
-			</div>
-			
-			<div id="divCategoriasComidaGeral">
-				<div id="divCategoriasComidaOpcao" th:each="categoria : ${categorias}">
-					<a href="#">
-					<img th:src="@{/images/categorias/} + ${categoria.imagem}" id="imgCategoriaComida"><br>
-					<span th:text="${categoria.nome}"></span>
-					</a>
-				</div>	
-			</div>
+			<form method="get" th:object="${searchFilter}" th:action="@{/cliente/search}" id="form">
 
+				<input type="hidden" id="searchType" th:field="*{searchType}">
+				<input type="hidden" id="categoriaId" th:field="*{categoriaId}">
+				<div>
+					<h1>É hora de rangar!</h1>
 
+						<!--Pesquisa feita pela caixa de texto;
+						A função searchRest() vai receber o valor null,
+						fazendo com que o enum searchType receba o valor TEXTO no backend-->
+						<fieldset>			
+							<input type="text" th:field="*{texto}" placeholder="Buscar por...">
+							<input type="button" value="Procurar" onclick="searchRest(null);">
+						</fieldset>
+					
+					<br>
+				</div>
+				
+				<div id="divCategoriasComidaGeral">
+					<div id="divCategoriasComidaOpcao" th:each="categoria : ${categorias}">
+						<a href="#">
+						<img th:src="@{/images/categorias/} + ${categoria.imagem}" id="imgCategoriaComida"><br>
+						<span th:text="${categoria.nome}"></span>
+						</a>
+					</div>	
+				</div>
+
+			</form>
 			
 			<div>
 				<h1>Últimos pedidos</h1>

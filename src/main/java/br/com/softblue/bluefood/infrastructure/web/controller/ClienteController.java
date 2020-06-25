@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import br.com.softblue.bluefood.application.services.ClienteService;
+import br.com.softblue.bluefood.application.services.RestauranteService;
 import br.com.softblue.bluefood.application.services.ValidationException;
 import br.com.softblue.bluefood.domain.cliente.Cliente;
 import br.com.softblue.bluefood.domain.cliente.ClienteRepository;
@@ -35,6 +36,9 @@ public class ClienteController {
 
 	@Autowired
 	private ClienteRepository cr;
+
+	@Autowired
+	private RestauranteService rs;
 
 	
 	@GetMapping(path = "/home")
@@ -71,8 +75,10 @@ public class ClienteController {
 	}
 
 	@GetMapping(path = "/search")
-	public String search(@ModelAttribute ("searchFilter") SearchFilter filter){
-		//model.addAttribute();
+	public String search(@ModelAttribute ("searchFilter") SearchFilter filter, Model model){
+		model.addAttribute("restaurantes", rs.search(filter));
+		model.addAttribute("categoriasR", rs.search(filter));
+		HelperController.addCategoriasToRequest(crr, model);
 		return "cliente-busca";
 	}
 }

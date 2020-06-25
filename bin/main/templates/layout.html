@@ -14,11 +14,10 @@
 					<img th:src="@{/images/bf_logotipoSistema.png}" id="imgLogotipoSistema" />
 				</a>
 			</div>
-			<!--<div id="divUsuarioLogado" th:if="${#authentication.principal != 'annonymousUser'}">
-				<span th:text="'Olá, ' + ${#authentication.principal.usuario.nome}"></span>
-			</div>-->
+			
 			<div id="divUsuarioLogado" th:if="${#authentication.principal != 'anonymousUser'}">
-				<span th:text="'Olá, ' + ${#authentication.principal.usuario.nome} + '!'"></span></div>
+				<span th:text="'Olá, ' + ${#authentication.principal.usuario.nome} + '!'"></span>
+			</div>
 		</header>
 		<br><br>
 		<!-- Cabeçalho - Fim -->

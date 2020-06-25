@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-	  xmlns:th="http://www.thymeleaf.org" layout:decorate="~{layout}" th:with="link=@{/cliente/search}">
+	  xmlns:th="http://www.thymeleaf.org" layout:decorate="~{layout}" th:with="link=@{/cliente/home}">
 	  																  
 		<div layout:fragment="content">
 		
 			<div>
-				<h1>� hora de rangar!</h1>
+				<h1>É hora de rangar!</h1>
 				<form method="get" th:object="${searchFilter}" th:action="@{/cliente/search}">
 					<fieldset>
 						<input type="text" th:field="*{texto}" placeholder="Buscar por...">
@@ -16,48 +16,20 @@
 			</div>
 			
 			<div id="divCategoriasComidaGeral">
-				<div id="divCategoriasComidaOpcao">
+				<div id="divCategoriasComidaOpcao" th:each="categoria : ${categorias}">
 					<a href="#">
-					<img src="images/sys_categoriaChurrasco.png" id="imgCategoriaComida"><br>
-					<span>Churrasco</span>
+					<img th:src="@{/images/categorias/} + ${categoria.imagem}" id="imgCategoriaComida"><br>
+					<span th:text="${categoria.nome}"></span>
 					</a>
-				</div>
-				
-				<div id="divCategoriasComidaOpcao">
-					<a href="#">
-					<img src="images/sys_categoriaHamburguer.png" id="imgCategoriaComida"><br>
-					<span>Hamburguer</span>
-					</a>
-				</div>
-				
-				<div id="divCategoriasComidaOpcao">
-					<a href="#">
-					<img src="images/sys_categoriaPizza.png" id="imgCategoriaComida"><br>
-					<span>Pizza</span>
-					</a>
-				</div>
-				
-				<div id="divCategoriasComidaOpcao">
-					<a href="#">
-					<img src="images/sys_categoriaSalada.png" id="imgCategoriaComida"><br>
-					<span>Salada</span>
-					</a>
-				</div>
-				
-				<div id="divCategoriasComidaOpcao">
-					<a href="#">
-					<img src="images/sys_categoriaSobremesa.png" id="imgCategoriaComida"><br>
-					<span>Sobremesa</span>
-					</a>
-				</div>
+				</div>	
 			</div>
 
 			<div>
 				<h1>Resultados</h1>
 				<fieldset id="fieldsetFiltros">
 					<legend>Filtros</legend>
-					<input type="button" value="Entrega gr�tis"><br>
-					<input type="button" value="Maior pre�o" id="inputSelecionado"> <input type="button" value="Menor pre�o"> <br>
+					<input type="button" value="Entrega grátis"><br>
+					<input type="button" value="Maior preço" id="inputSelecionado"> <input type="button" value="Menor preço"> <br>
 					<input type="button" value="Maior taxa" id="inputSelecionado"> <input type="button" value="Menor taxa"> <br>
 					<input type="button" value="Maior tempo"> <input type="button" value="Menor tempo" id="inputSelecionado"> <br>
 				</fieldset>
@@ -65,38 +37,19 @@
 			</div>
 			
 			<div id="divRestaurantesGeral">
-				<div id="divRestaurantesOpcao">
-					<a href="clienteRestaurante.html">
-					<img src="images/sys_restauranteBubgerKirg.png" id="imgRestauranteOpcao"><br>
-					<span id="restauranteOpcaoTitulo">Nome do Restaurante</span><br>
-					<span>Categoria de Comida</span><br>
-					<span>Tempo m�dio de entrega: 40m</span><br>
-					<span>Taxa de entrega: R$ 15,00</span><br>
+				<div id="divRestaurantesOpcao" th:each="restaurante : ${restaurantes}">
+					<a href="#">
+					<img th:src="@{/images/logotipos/} + ${restaurante.logotipo}" id="imgRestauranteOpcao"><br>
+					<span id="restauranteOpcaoTitulo" th:text="${restaurante.nome}"></span><br>
+					<span th:text="${restaurante.categoriasAsText}"></span><br />
+					<!--<span th:each="restaurante : ${restaurantes}" th:text="${restaurante.categorias} + ', '"></span><br>-->
+					<span th:text="'Tempo médio de entrega: ' + ${restaurante.tempoEntrega} + 'm'"></span><br>
+					<span th:text="'Taxa de entrega: ' + ${#numbers.formatCurrency(restaurante.taxaEntrega)}"></span><br>
 					</a>
 				</div>
-				<br><br>
 				
-				<div id="divRestaurantesOpcao">
-					<a href="clienteRestaurante.html">
-					<img src="images/sys_restauranteMcNaldos.png" id="imgRestauranteOpcao"><br>
-					<span id="restauranteOpcaoTitulo">Nome do Restaurante</span><br>
-					<span id="restauranteOpcaoCategoria">Categoria de Comida</span><br>
-					<span id="restauranteOpcaoTempo">Tempo m�dio de entrega: 40m</span><br>
-					<span id="restauranteOpcaoTaxa">Taxa de entrega: R$ 15,00</span><br>
-					</a>
-				</div>
 				<br><br>
-				
-				<div id="divRestaurantesOpcao">
-					<a href="clienteRestaurante.html">
-					<img src="images/sys_restauranteSbubby.png" id="imgRestauranteOpcao"><br>
-					<span id="restauranteOpcaoTitulo">Nome do Restaurante</span><br>
-					<span id="restauranteOpcaoCategoria">Categoria de Comida</span><br>
-					<span id="restauranteOpcaoTempo">Tempo m�dio de entrega: 40m</span><br>
-					<span id="restauranteOpcaoTaxa">Taxa de entrega: R$ 15,00</span><br>
-					</a>
-				</div>
-				<br><br>
+
 
 			</div>
 			<input type="button" value="Voltar" onClick="location.href='clienteHome.html';">

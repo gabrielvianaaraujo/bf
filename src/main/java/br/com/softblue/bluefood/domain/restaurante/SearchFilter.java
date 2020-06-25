@@ -5,6 +5,12 @@ import lombok.Data;
 @Data
 public class SearchFilter {
  
-    private String texto;
+    public enum SearchType{
+        TEXTO,
+        CATEGORIA
+    }
 
+    private String texto;
+    private SearchType searchType;
+    private Integer categoriaId;
 }
