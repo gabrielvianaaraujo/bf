@@ -21,6 +21,7 @@ import br.com.softblue.bluefood.domain.cliente.Cliente;
 import br.com.softblue.bluefood.domain.cliente.ClienteRepository;
 import br.com.softblue.bluefood.domain.restaurante.CategoriaRestaurante;
 import br.com.softblue.bluefood.domain.restaurante.CategoriaRestauranteRepository;
+import br.com.softblue.bluefood.domain.restaurante.Restaurante;
 import br.com.softblue.bluefood.domain.restaurante.SearchFilter;
 import br.com.softblue.bluefood.utils.SecurityUtils;
 
@@ -76,8 +77,20 @@ public class ClienteController {
 
 	@GetMapping(path = "/search")
 	public String search(@ModelAttribute ("searchFilter") SearchFilter filter, Model model){
+
+		filter.processFilter();
+
+		//Pode ser feito assim:
+
+		/*List<Restaurante> restaurantes = rs.search(filter);
+		model.addAttribute("restaurantes", restaurantes);*/
+
+		//Ou assim:
 		model.addAttribute("restaurantes", rs.search(filter));
-		model.addAttribute("categoriasR", rs.search(filter));
+
+		//Adiciona novamente ao model para que esteja disponível na página cliente-busca
+		model.addAttribute("searchFilter", filter);
+
 		HelperController.addCategoriasToRequest(crr, model);
 		return "cliente-busca";
 	}

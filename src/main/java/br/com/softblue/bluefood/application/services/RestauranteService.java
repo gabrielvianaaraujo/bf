@@ -10,6 +10,7 @@ import br.com.softblue.bluefood.domain.cliente.ClienteRepository;
 import br.com.softblue.bluefood.domain.restaurante.Restaurante;
 import br.com.softblue.bluefood.domain.restaurante.RestauranteRepository;
 import br.com.softblue.bluefood.domain.restaurante.SearchFilter;
+import br.com.softblue.bluefood.domain.restaurante.SearchFilter.SearchType;
 
 @Service
 public class RestauranteService {
@@ -59,8 +60,18 @@ public class RestauranteService {
 		return true;
 	}
 
-	public List<Restaurante> search(SearchFilter searchFilter){
-		//TODO: Considerar critperios de filtragem
-		return rr.findAll();
+	public List<Restaurante> search(SearchFilter filter){
+		
+		List<Restaurante> restaurantes;
+
+		if(filter.getSearchType() == SearchType.TEXTO){
+			restaurantes = rr.findByNomeIgnoreCaseContaining(filter.getTexto());
+		}
+		else if(filter.getSearchType() == SearchType.CATEGORIA){
+			restaurantes = rr.findByCategorias_Id(filter.getCategoriaId());
+		}
+		else throw new IllegalStateException("O tipo de busca " + filter.getSearchType() + " não é suportado");
+		
+		return restaurantes;
 	}
 }

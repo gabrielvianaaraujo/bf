@@ -22,8 +22,11 @@
 				</div>
 				
 				<div id="divCategoriasComidaGeral">
+					<!--Pesquisa feita pelo clique na imagem da categoria;
+						A função searchRest() vai receber o valor armazenado em categoriaId,
+						fazendo com que o enum searchType receba o valor CATEGORIA no backend-->
 					<div id="divCategoriasComidaOpcao" th:each="categoria : ${categorias}">
-						<a href="#">
+						<a href="#" th:onclick="'searchRest(' + ${categoria.id} + ');'">
 						<img th:src="@{/images/categorias/} + ${categoria.imagem}" id="imgCategoriaComida"><br>
 						<span th:text="${categoria.nome}"></span>
 						</a>
