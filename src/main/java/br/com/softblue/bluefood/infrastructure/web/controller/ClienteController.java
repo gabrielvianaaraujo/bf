@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import br.com.softblue.bluefood.application.services.ClienteService;
 import br.com.softblue.bluefood.application.services.RestauranteService;
@@ -21,7 +22,6 @@ import br.com.softblue.bluefood.domain.cliente.Cliente;
 import br.com.softblue.bluefood.domain.cliente.ClienteRepository;
 import br.com.softblue.bluefood.domain.restaurante.CategoriaRestaurante;
 import br.com.softblue.bluefood.domain.restaurante.CategoriaRestauranteRepository;
-import br.com.softblue.bluefood.domain.restaurante.Restaurante;
 import br.com.softblue.bluefood.domain.restaurante.SearchFilter;
 import br.com.softblue.bluefood.utils.SecurityUtils;
 
@@ -76,9 +76,9 @@ public class ClienteController {
 	}
 
 	@GetMapping(path = "/search")
-	public String search(@ModelAttribute ("searchFilter") SearchFilter filter, Model model){
+	public String search(@ModelAttribute ("searchFilter") SearchFilter filter,@RequestParam(value = "cmd", required = false) String command, Model model){
 
-		filter.processFilter();
+		filter.processFilter(command);
 
 		//Pode ser feito assim:
 

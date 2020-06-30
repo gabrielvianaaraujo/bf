@@ -15,3 +15,9 @@ function searchRest(categoriaId) {
 	
 	document.getElementById("form").submit();
 }
+
+//Submete o 
+function setCmd(cmd){
+	document.getElementById("cmd").value = cmd;
+	document.getElementById("form").submit();
+}
