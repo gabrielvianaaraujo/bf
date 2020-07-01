@@ -22,6 +22,9 @@ import br.com.softblue.bluefood.domain.cliente.Cliente;
 import br.com.softblue.bluefood.domain.cliente.ClienteRepository;
 import br.com.softblue.bluefood.domain.restaurante.CategoriaRestaurante;
 import br.com.softblue.bluefood.domain.restaurante.CategoriaRestauranteRepository;
+import br.com.softblue.bluefood.domain.restaurante.ItemCardapioRepository;
+import br.com.softblue.bluefood.domain.restaurante.Restaurante;
+import br.com.softblue.bluefood.domain.restaurante.RestauranteRepository;
 import br.com.softblue.bluefood.domain.restaurante.SearchFilter;
 import br.com.softblue.bluefood.utils.SecurityUtils;
 
@@ -40,6 +43,12 @@ public class ClienteController {
 
 	@Autowired
 	private RestauranteService rs;
+
+	@Autowired
+	private  RestauranteRepository rr;
+
+	@Autowired
+	private ItemCardapioRepository icr;
 
 	
 	@GetMapping(path = "/home")
@@ -98,7 +107,16 @@ public class ClienteController {
 	}
 
 	@GetMapping(path = "/restaurante")
+	//@RequestParam ("restauranteId") Integer restauranteId - Recupera da Request o valor de restauranteId e coloca na variável declarada
 	public String viewRestaurante(@RequestParam ("restauranteId") Integer restauranteId, Model model){
+
+		Restaurante restaurante = rr.findById(restauranteId).orElseThrow();
+		model.addAttribute("restaurante", restaurante);
+		model.addAttribute("cep", SecurityUtils.loggedCliente().getCep());
+
+		List<String> categorias = icr.findCategorias(restauranteId);
+		model.addAttribute("categorias", categorias);
+
 		return "cliente-restaurante";
 	}
 }
