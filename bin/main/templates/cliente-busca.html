@@ -38,11 +38,11 @@
 					<fieldset id="fieldsetFiltros">
 						<legend>Filtros</legend>
 						
-						<input type="button" value="Entrega grátis" th:id="*{entregaGratis} ? 'inputSelecionado' : ''" onclick="setCmd('ENTREGAGRATIS')" /><br>
-						<input type="button" value="Maior taxa" th:id="*{order.name()} == 'TAXA' and !*{asc} ? 'inputSelecionado' : ''" onclick="setCmd('MENORTAXA')"/>
-						<input type="button" value="Menor taxa" th:id="*{order.name()} == 'TAXA' and *{asc} ? 'inputSelecionado' : ''" onclick="setCmd('MAIORTAXA')"/> <br>
-						<input type="button" value="Maior tempo" th:id="*{order.name()} == 'TEMPO' and !*{asc} ? 'inputSelecionado' : ''" onclick="setCmd('MENORTEMPO')"/>
-						<input type="button" value="Menor tempo" th:id="*{order.name()} == 'TEMPO' and *{asc} ? 'inputSelecionado' : ''" onclick="setCmd('MAIORTEMPO')"/> <br>
+						<input type="button" value="Entrega grátis" th:id="!*{entregaGratis} ? 'inputSelecionado' : ''" onclick="setCmd('ENTREGAGRATIS')" /><br>
+						<input type="button" value="Menor taxa" th:id="*{order.name()} == 'TAXA' and *{asc} ? 'inputSelecionado' : ''" onclick="setCmd('MENORTAXA')"/> 
+						<input type="button" value="Maior taxa" th:id="*{order.name()} == 'TAXA' and !*{asc} ? 'inputSelecionado' : ''" onclick="setCmd('MAIORTAXA')"/><br />
+						<input type="button" value="Menor tempo" th:id="*{order.name()} == 'TEMPO' and *{asc} ? 'inputSelecionado' : ''" onclick="setCmd('MENORTEMPO')"/>
+						<input type="button" value="Maior tempo" th:id="*{order.name()} == 'TEMPO' and !*{asc} ? 'inputSelecionado' : ''" onclick="setCmd('MAIORTEMPO')"/><br>
 						
 						<input type="hidden" id = "entregaGratis" th:field="*{entregaGratis}">
 						<input type="hidden" id = "order" th:field="*{order}" />
@@ -55,7 +55,7 @@
 		</form>
 			<div id="divRestaurantesGeral">
 				<div id="divRestaurantesOpcao" th:each="restaurante : ${restaurantes}">
-					<a href="#">
+					<a th:href="@{/cliente/restaurante} + '?restauranteId=' + ${restaurante.id}">
 					<img th:src="@{/images/logotipos/} + ${restaurante.logotipo}" id="imgRestauranteOpcao"><br>
 					<span id="restauranteOpcaoTitulo" th:text="${restaurante.nome}"></span><br>
 					<span th:text="${restaurante.categoriasAsText}"></span><br />

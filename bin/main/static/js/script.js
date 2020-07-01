@@ -16,7 +16,8 @@ function searchRest(categoriaId) {
 	document.getElementById("form").submit();
 }
 
-//Submete o 
+//Atribui o valor passado em cmd para ser passado ao enum Order
+//Submete o formulário
 function setCmd(cmd){
 	document.getElementById("cmd").value = cmd;
 	document.getElementById("form").submit();

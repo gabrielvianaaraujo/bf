@@ -158,6 +158,20 @@ public class InsertDataForTesting {
 		r.setTempoEntrega(19);
 		restauranteRepository.save(r);
 		restaurantes.add(r);
+
+		r = new Restaurante();
+		r.setNome("Wiki Japa");
+		r.setEmail("r5@bluefood.com.br");
+		r.setSenha(StringUtils.encrypt("r"));
+		r.setCnpj("00000000000105");
+		r.setTaxaEntrega(BigDecimal.valueOf(0));
+		r.setTelefone("1111111111");
+		r.getCategorias().add(categoriaJapones);
+		r.getCategorias().add(categoriaSobremesa);
+		r.setLogotipo("0005-logo.png");
+		r.setTempoEntrega(19);
+		restauranteRepository.save(r);
+		restaurantes.add(r);
 		
 		Restaurante[] array = new Restaurante[restaurantes.size()]; 
 		return restaurantes.toArray(array);

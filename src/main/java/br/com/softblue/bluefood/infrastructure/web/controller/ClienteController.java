@@ -76,7 +76,9 @@ public class ClienteController {
 	}
 
 	@GetMapping(path = "/search")
-	public String search(@ModelAttribute ("searchFilter") SearchFilter filter,@RequestParam(value = "cmd", required = false) String command, Model model){
+	public String search(@ModelAttribute ("searchFilter") SearchFilter filter,
+						 @RequestParam(value = "cmd", required = false) String command, 
+						 Model model){
 
 		filter.processFilter(command);
 
@@ -93,5 +95,10 @@ public class ClienteController {
 
 		HelperController.addCategoriasToRequest(crr, model);
 		return "cliente-busca";
+	}
+
+	@GetMapping(path = "/restaurante")
+	public String viewRestaurante(@RequestParam ("restauranteId") Integer restauranteId, Model model){
+		return "cliente-restaurante";
 	}
 }

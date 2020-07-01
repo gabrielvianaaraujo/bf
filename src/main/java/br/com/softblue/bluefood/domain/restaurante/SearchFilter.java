@@ -34,7 +34,9 @@ public class SearchFilter {
         if(!StringUtils.isEmpty(cmdString)){
             Command cmd = Command.valueOf(cmdString);
 
-            if(cmd == Command.ENTREGAGRATIS) entregaGratis = !entregaGratis;
+            if(cmd == Command.ENTREGAGRATIS){
+                entregaGratis = !entregaGratis;
+            }
             else if(cmd == Command.MAIORTAXA){
                 order = Order.TAXA;
                 asc = true;
