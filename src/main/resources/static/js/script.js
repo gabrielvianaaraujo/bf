@@ -22,3 +22,23 @@ function setCmd(cmd){
 	document.getElementById("cmd").value = cmd;
 	document.getElementById("form").submit();
 }
+
+function add(){
+	var valor = Number.parseInt(document.getElementById("qtd").value);
+	document.getElementById("qtd").value = valor + 1;
+}
+
+function sub(){
+	var valor = Number.parseInt(document.getElementById("qtd").value);
+	if(valor > 1){
+		document.getElementById("qtd").value = valor - 1;
+	}
+	else if(valor == 1){
+		document.getElementById("qtd").value = 1;
+	}
+}
+
+function filterCardapio(categoria){
+	document.getElementById("categoria").value = categoria;
+	document.getElementById("filterForm").submit();
+}

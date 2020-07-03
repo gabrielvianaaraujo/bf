@@ -207,7 +207,7 @@ div#divCategoriasComidaGeral
 {
   overflow: hidden;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
 }
 
 img#imgCategoriaComida
@@ -260,3 +260,11 @@ div#mensagemDeSucesso
  border: 2px solid #ff2828;
 }
 
+div#divRestaurantesOpcao
+{
+	background-color: #ffffff;
+	width: 400px;
+	height: auto;
+	margin-left: auto;
+	margin-right: auto;
+}

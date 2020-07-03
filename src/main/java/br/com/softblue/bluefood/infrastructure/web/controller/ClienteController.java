@@ -22,6 +22,7 @@ import br.com.softblue.bluefood.domain.cliente.Cliente;
 import br.com.softblue.bluefood.domain.cliente.ClienteRepository;
 import br.com.softblue.bluefood.domain.restaurante.CategoriaRestaurante;
 import br.com.softblue.bluefood.domain.restaurante.CategoriaRestauranteRepository;
+import br.com.softblue.bluefood.domain.restaurante.ItemCardapio;
 import br.com.softblue.bluefood.domain.restaurante.ItemCardapioRepository;
 import br.com.softblue.bluefood.domain.restaurante.Restaurante;
 import br.com.softblue.bluefood.domain.restaurante.RestauranteRepository;
@@ -108,7 +109,10 @@ public class ClienteController {
 
 	@GetMapping(path = "/restaurante")
 	//@RequestParam ("restauranteId") Integer restauranteId - Recupera da Request o valor de restauranteId e coloca na variável declarada
-	public String viewRestaurante(@RequestParam ("restauranteId") Integer restauranteId, Model model){
+	public String viewRestaurante(
+		@RequestParam ("restauranteId") Integer restauranteId,
+		@RequestParam(value = "categoria", required = false) String categoria, 
+		Model model){
 
 		Restaurante restaurante = rr.findById(restauranteId).orElseThrow();
 		model.addAttribute("restaurante", restaurante);
@@ -116,6 +120,24 @@ public class ClienteController {
 
 		List<String> categorias = icr.findCategorias(restauranteId);
 		model.addAttribute("categorias", categorias);
+
+		List<ItemCardapio> itensCardapioDestaque;
+		List<ItemCardapio> itensCardapioNaoDestaque;
+
+		//Se categoria for nula, pesquisa sem categoria
+		if(categoria == null){
+			itensCardapioDestaque = icr.findByRestaurante_IdAndDestaqueOrderByNome(restauranteId, true);
+			itensCardapioNaoDestaque = icr.findByRestaurante_IdAndDestaqueOrderByNome(restauranteId, false);
+		}
+		else {
+			itensCardapioDestaque = icr.findByRestaurante_IdAndDestaqueAndCategoriaOrderByNome(restauranteId, true, categoria);
+			itensCardapioNaoDestaque = icr.findByRestaurante_IdAndDestaqueAndCategoriaOrderByNome(restauranteId, false, categoria);
+		}
+		
+		
+		model.addAttribute("destaque", itensCardapioDestaque);
+		model.addAttribute("naoDestaque", itensCardapioNaoDestaque);
+		model.addAttribute("categoriaSelecionada", categoria);
 
 		return "cliente-restaurante";
 	}
