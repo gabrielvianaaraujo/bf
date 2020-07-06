@@ -20,21 +20,22 @@
 					<fieldset id="fieldsetFiltros">
 						<legend>Filtros</legend>
 						<div th:each="categoria : ${categorias}" style="display: inline;">
-							<input type="button" 
-							th:data-categoria="${categoria}" 
-							th:value="${categoria}" 
-							onclick="filterCardapio(this.getAttribute('data-categoria'))"/>
+							<input
+								th:id="${categoria == categoriaSelecionada} ? 'inputSelecionado' : ''"
+								type="button"
+								th:data-categoria="${categoria}" 
+								th:value="${categoria}" 
+								onclick="filterCardapio(this.getAttribute('data-categoria'))"/>
 						</div>
 						
 					</fieldset>
 				</form>
-				<br>
 			</div>
-			
-			<div>
+
+			<div th:if="${destaque.size() > 0}">
 				<h1>Destaques</h1>
 			</div>
-			
+
 			<div id="divCategoriasComidaGeral" th:each="item : ${destaque}">
 			<div id="divRestaurantesOpcao">
 				<img th:src="@{/images/comidas/} + ${item.imagem}" id="imgRestauranteOpcao"><br>
@@ -79,7 +80,8 @@
 						<label for="quantidade">Quantidade: </label>
 						<br>
 						<input type="text" name="qtd" id="qtd" value="1" style="text-align: center; width: 60px;" /> <br />
-					<input type="button" value="-" onclick="sub()" style="width: 30px;"/> <input type="button" value="+" onclick="add()" style="width: 30px;"/>
+						<input type="button" value="-" onclick="sub()" style="width: 30px;"/>
+						<input type="button" value="+" onclick="add()" style="width: 30px;"/>
 					<!--<select name="quantidade" id="quantidade" >
 						<option>1</option>
 						<option>2</option>

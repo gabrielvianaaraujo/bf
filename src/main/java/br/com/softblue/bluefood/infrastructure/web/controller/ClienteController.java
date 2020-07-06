@@ -137,6 +137,7 @@ public class ClienteController {
 		
 		model.addAttribute("destaque", itensCardapioDestaque);
 		model.addAttribute("naoDestaque", itensCardapioNaoDestaque);
+		
 		model.addAttribute("categoriaSelecionada", categoria);
 
 		return "cliente-restaurante";
