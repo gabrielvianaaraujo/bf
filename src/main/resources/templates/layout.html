@@ -16,8 +16,15 @@
 				</a>
 			</div>
 			
-			<div id="divUsuarioLogado" th:if="${#authentication.principal != 'anonymousUser'}">
-				<span th:text="'Olá, ' + ${#authentication.principal.usuario.nome} + '!'"></span>
+			<div id="divUsuarioLogado" th:if="${#authentication.principal != 'anonymousUser'}" style="padding-top: 10px; padding-bottom: 10px;">
+				<span th:text="'Olá, ' + ${#authentication.principal.usuario.nome} + '!'" style="vertical-align: middle;"></span>
+				<span th:if="${session.carrinho != null}">
+					<a th:href="@{/cliente/carrinho/visualizar}">
+						<img th:src="@{/images/bf_iconeCarrinho.png}"
+							alt="carrinho" 
+							style="width: 50px; height: 50px; vertical-align: middle;">
+					</a>
+				</span>
 			</div>
 		</header>
 		<br><br>

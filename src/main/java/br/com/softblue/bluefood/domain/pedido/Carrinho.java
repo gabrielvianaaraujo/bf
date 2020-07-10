@@ -55,11 +55,13 @@ public class Carrinho implements Serializable{
         }
     }
 
-    public void limparCarrinho(boolean limpar){
-        if(limpar) {
-            itens.clear();
-            restaurante = null;
-        }
+    public void limparCarrinho(){
+        itens.clear();
+        restaurante = null;
+    }
+
+    public boolean isEmpty(){
+        return itens.size() == 0;
     }
 
     public BigDecimal getPrecoTotal(boolean adicionarTaxaEntrega){
