@@ -24,6 +24,7 @@
 package br.com.softblue.bluefood.application.test;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -35,6 +36,8 @@ import org.springframework.stereotype.Component;
 
 import br.com.softblue.bluefood.domain.cliente.Cliente;
 import br.com.softblue.bluefood.domain.cliente.ClienteRepository;
+import br.com.softblue.bluefood.domain.pedido.Pedido;
+import br.com.softblue.bluefood.domain.pedido.Pedido.Status;
 //import br.com.softblue.bluefood.domain.pedido.Pedido;
 //import br.com.softblue.bluefood.domain.pedido.PedidoRepository;
 //import br.com.softblue.bluefood.domain.pedido.Pedido.Status;
@@ -78,7 +81,7 @@ public class InsertDataForTesting {
 		p.setSubtotal(BigDecimal.valueOf(10));
 		p.setTaxaEntrega(BigDecimal.valueOf(2));
 		p.setTotal(BigDecimal.valueOf(12.0));
-		pedidoRespository.save(p);*/
+		pr.save(p);*/
 	}
 	
 	private Restaurante[] restaurantes() {

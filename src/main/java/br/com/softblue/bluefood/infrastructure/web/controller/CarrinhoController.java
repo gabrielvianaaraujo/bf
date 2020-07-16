@@ -12,6 +12,9 @@ import org.springframework.web.bind.support.SessionStatus;
 
 import br.com.softblue.bluefood.application.services.RestauranteDiferenteException;
 import br.com.softblue.bluefood.domain.pedido.Carrinho;
+import br.com.softblue.bluefood.domain.pedido.ItemPedido;
+import br.com.softblue.bluefood.domain.pedido.Pedido;
+import br.com.softblue.bluefood.domain.pedido.PedidoRepository;
 import br.com.softblue.bluefood.domain.restaurante.ItemCardapio;
 import br.com.softblue.bluefood.domain.restaurante.ItemCardapioRepository;
 
@@ -22,6 +25,9 @@ public class CarrinhoController {
 
     @Autowired
     private ItemCardapioRepository icr;
+
+    @Autowired
+    private PedidoRepository pr;
 
     @ModelAttribute("carrinho")
     public Carrinho carrinho() {
@@ -63,6 +69,22 @@ public class CarrinhoController {
         
         if(carrinho.isEmpty()){
             sessionStatus.setComplete();
+        }
+
+        return "cliente-carrinho";
+    }
+
+    @GetMapping(path = "/refazerCarrinho")
+    public String refazerCarrinho(
+        @RequestParam("pedidoId") Integer pedidoId,
+        @ModelAttribute("carrinho") Carrinho carrinho,
+        Model model) {
+
+        Pedido pedido = pr.findById(pedidoId).orElseThrow();
+        carrinho.limparCarrinho();
+        
+        for(ItemPedido item : pedido.getItens()){
+            carrinho.adicionarItem(item);
         }
 
         return "cliente-carrinho";

@@ -46,14 +46,18 @@
 				</div>
 				<br><br>
 				
-				<div>
-					<span id="restauranteOpcaoTitulo">Cartão de Crédito</span><br>
-					<input type="text" id="inputLargo" onkeypress="return isNumberKey(event)">
-				</div>
-				<br>
-				<div>
-					<input type="button" value="Enviar pedido" onClick="location.href='clientePedido.html';">
-				</div>
+				<form method="post" th:action="@{/cliente/pagamento/pagar}">
+					<div>
+						<span id="restauranteOpcaoTitulo">Cartão de Crédito</span><br>
+						<input type="text" name="numCartao" id="inputLargo" onkeypress="return isNumberKey(event)">
+					</div>
+					<br>
+					<div>
+						<input type="submit" value="Enviar pedido" name="enviarPedido"/><br/><br/>
+						
+					</div>
+				</form>
+				<input type="button" value="Voltar" th:onclick="'location.href=\'' + @{/cliente/home} + '\';'">
 			</div>
 			
 		</div>
